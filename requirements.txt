@@ -1,5 +1,4 @@
 flask
-socket
 qrcode
 PIL
 numpy
