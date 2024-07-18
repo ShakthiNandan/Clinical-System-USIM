@@ -8,7 +8,7 @@
 import sys
 
 # add your project directory to the sys.path
-project_home = '/home/USIM/18.7.24'
+project_home = '/'
 if project_home not in sys.path:
     sys.path = [project_home] + sys.path
 
