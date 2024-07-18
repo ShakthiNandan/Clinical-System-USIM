@@ -1,1 +1,12 @@
-
+flask
+io
+socket
+qrcode
+PIL
+numpy
+opencv-python
+smtplib
+twilio
+base64
+webbrowser
+matplotlib
