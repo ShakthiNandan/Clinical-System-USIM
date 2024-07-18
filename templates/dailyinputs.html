@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Inputs Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Inputs Data</h1>
+        {% for row in rows %}
+        <div class="record">
+            <div><strong>PatientID:</strong> {{ row['PatientID'] }}</div>
+            <div><strong>InputID:</strong> {{ row['InputID'] }}</div>
+            <div><strong>Date:</strong> {{ row['Date'] }}</div>
+            <div><strong>BF Pre Time:</strong> {{ row['BfPreTime'] }}</div>
+            <div><strong>BF Sugar Level Pre:</strong> {{ row['BfSugarLevelPre'] }}</div>
+            <div><strong>BF Post Time:</strong> {{ row['BfPostTime'] }}</div>
+            <div><strong>BF Sugar Level Post:</strong> {{ row['BfSugarLevelPost'] }}</div>
+            <div><strong>Lunch Pre Time:</strong> {{ row['LunchPreTime'] }}</div>
+            <div><strong>Lunch Sugar Level Pre:</strong> {{ row['LunchSugarLevelPre'] }}</div>
+            <div><strong>Lunch Post Time:</strong> {{ row['LunchPostTime'] }}</div>
+            <div><strong>Lunch Sugar Level Post:</strong> {{ row['LunchSugarLevelPost'] }}</div>
+            <div><strong>Dinner Pre Time:</strong> {{ row['DinnerPreTime'] }}</div>
+            <div><strong>Dinner Sugar Level Pre:</strong> {{ row['DinnerSugarLevelPre'] }}</div>
+            <div><strong>Dinner Post Time:</strong> {{ row['DinnerPostTime'] }}</div>
+            <div><strong>Dinner Sugar Level Post:</strong> {{ row['DinnerSugarLevelPost'] }}</div>
+            <div><strong>BP Time:</strong> {{ row['BPTime'] }}</div>
+            <div><strong>BP:</strong> {{ row['BP'] }}</div>
+            <div><strong>Remarks:</strong> {{ row['remarks'] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

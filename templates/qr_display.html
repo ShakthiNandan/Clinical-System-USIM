@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="copyright" content="MACode ID, https://macodeid.com/">
+  <title>One Health - Medical Center HTML5 Template</title>
+  <link rel="stylesheet" href="../static/css/maicons.css">
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/vendor/owl-carousel/css/owl.carousel.css">
+  <link rel="stylesheet" href="../static/vendor/animate/animate.css">
+  <link rel="stylesheet" href="../static/css/theme.css">
+  <style>
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="back-to-top"></div>
+  {% include 'header.html' %}
+  
+  <div class="qr-container">
+    <h2>QR Code for {{ patient_id }}</h2>
+    <a href="{{ link }}">
+      <img src="{{ url_for('static', filename='qrcode.png') }}" alt="QR Code">
+    </a>
+  </div>
+  
+  {% include 'footer.html' %}
+
+  <script src="../static/js/jquery-3.5.1.min.js"></script>
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+  <script src="../static/vendor/wow/wow.min.js"></script>
+  <script src="../static/js/theme.js"></script>
+</body>
+</html>

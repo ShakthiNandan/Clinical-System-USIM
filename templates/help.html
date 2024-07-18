@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-size: cover;
+            color: #333;
+        }
+
+        .help-container {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        section h2 {
+            font-size: 2em;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        section p, section ul {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        section ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>{% include 'header.html' %}
+
+    <div class="help-container">
+        <header>
+            <h1>Help</h1>
+        </header>
+        <section>
+            <h2>How to Use the Website</h2>
+            <ul>
+                <li><strong>Home Page:</strong> The home page provides an overview of our services and latest updates. You can navigate to different sections using the menu at the top.</li>
+                <li><strong>Registration:</strong> To access our services, you need to create an account. Click on the "Sign Up" button and fill in the required details. Make sure to verify your email address to activate your account.</li>
+                <li><strong>Login:</strong> If you already have an account, click on the "Login" button and enter your credentials to access your profile and services. If you forget your password, use the "Forgot Password" link to reset it.</li>
+                <li><strong>Profile Management:</strong> Once logged in, you can view and update your profile information from the "Profile" section. Ensure your information is up-to-date for a better experience.</li>
+                <li><strong>Online Consultations:</strong> To book an online consultation, go to the "Consultations" section, select a service, and choose a convenient time slot. You will receive a confirmation email with the consultation details.</li>
+                <li><strong>Medical History:</strong> You can securely store and manage your medical history in the "Medical History" section. This helps our doctors to provide better care. Upload your previous medical records and keep track of your health progress.</li>
+                <li><strong>Health Resources:</strong> Access a variety of health-related articles, tips, and updates in the "Health Resources" section to stay informed. Use the search bar to find specific topics of interest.</li>
+                <li><strong>Contact Us:</strong> If you have any questions or need assistance, visit the "Contact Us" section to reach out to our support team. Fill out the contact form or use the provided email and phone number for direct communication.</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <ul>
+                <li><strong>How do I reset my password?</strong> Click on the "Forgot Password" link on the login page, enter your email address, and follow the instructions sent to your email.</li>
+                <li><strong>How do I update my profile information?</strong> Log in to your account, go to the "Profile" section, and edit your details. Click "Save" to update your information.</li>
+                <li><strong>How can I view my medical history?</strong> Go to the "Medical History" section after logging in. You can view, upload, and manage your medical records from there.</li>
+                <li><strong>What should I do if I encounter technical issues?</strong> Visit the "Contact Us" section and report the issue using the contact form. Our support team will assist you promptly.</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Additional Tips</h2>
+            <ul>
+                <li><strong>Stay Secure:</strong> Always log out of your account when using public computers. Keep your login credentials confidential.</li>
+                <li><strong>Regular Updates:</strong> Regularly check the "Health Resources" section for new articles and updates to stay informed about the latest health trends and tips.</li>
+                <li><strong>Feedback:</strong> We value your feedback. Use the "Contact Us" section to provide suggestions or feedback on how we can improve our services.</li>
+            </ul>
+        </section>
+    </div>{% include 'footer.html' %}
+
+</body>
+</html>

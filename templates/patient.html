@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Data</h1>
+        {% for row in rows %}
+        <div class="record">
+            <div><strong>PatientID:</strong> {{ row['PatientID'] }}</div>
+            <div><strong>Name:</strong> {{ row['Name'] }}</div>
+            <div><strong>DOB:</strong> {{ row['DOB'] }}</div>
+            <div><strong>Gender:</strong> {{ row['Gender'] }}</div>
+            <div><strong>Age:</strong> {{ row['Age'] }}</div>
+            <div><strong>Blood Group:</strong> {{ row['BloodGroup'] }}</div>
+            <div><strong>Height:</strong> {{ row['height'] }}</div>
+            <div><strong>Weight:</strong> {{ row['weight'] }}</div>
+            <div><strong>BMI:</strong> {{ row['bmi'] }}</div>
+            <div><strong>Contact:</strong> {{ row['Contact'] }}</div>
+            <div><strong>Emergency Contact:</strong> {{ row['EmergencyContact'] }}</div>
+            <div><strong>Address:</strong> {{ row['Address'] }}</div>
+            <div><strong>Remarks:</strong> {{ row['remarks'] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

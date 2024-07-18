@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Data Entry</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+             background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 10px;
+            margin-left: 20px;
+        }
+
+        .form-container {
+            display: none;
+        }
+
+        .table-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: left;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .table-button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            color: #1e1e1e;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bolder;
+            font-size: 14px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 5px;
+            border: 1px solid lightgrey;
+            border-radius: 0px;
+            box-sizing: border-box;
+            color: #2C3E50;
+            font-size: 14px;
+            letter-spacing: 1px;
+            resize: none;
+        }
+
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border: 1px solid #304FFE;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-size: cover;
+            color: #333;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .profile-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .profile-card h2 {
+            margin-bottom: 20px;
+        }
+        .profile-item {
+            margin-bottom: 10px;
+        }
+        .profile-item span {
+            font-weight: bold;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin-bottom: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+            background-color: #38bea1;
+            color: #000000;
+            padding: 10px;
+            border-radius: 25px;
+            display: block;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #00D9A5;
+            transform: scale(1.05);
+        }
+        .hidden {
+            display: none;
+        }
+        .fullscreen-img {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .fullscreen-img img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    </style>
+</head>
+
+<body onload="setCurrentDateAndTime()">{% include 'header.html' %}
+
+    <script>
+        function checkGender() {
+            var gender = document.getElementById("gender").value;
+            var pregnancyForm = document.getElementById("pregnancyForm");
+            if (gender.toLowerCase() === "female") {
+                pregnancyForm.style.display = "block";
+            } else {
+                pregnancyForm.style.display = "none";
+            }
+        }
+
+        function calculateBMI() {
+            var height = parseFloat(document.getElementById("height").value);
+            var weight = parseFloat(document.getElementById("weight").value);
+            if (!isNaN(height) && !isNaN(weight) && height > 0 && weight > 0) {
+                var heightInMeters = height / 100;
+                var bmi = weight / (heightInMeters * heightInMeters);
+                document.getElementById("bmi").value = bmi.toFixed(2);
+            } else {
+                document.getElementById("bmi").value = '';
+            }
+        }
+
+        function showForm(formId) {
+            var forms = document.getElementsByClassName("form-container");
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].style.display = "none";
+            }
+            document.getElementById(formId).style.display = "block";
+        }
+
+        function setCurrentDateAndTime() {
+            var now = new Date();
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var currentTime = hours + ':' + minutes;
+
+            var year = now.getFullYear();
+            var month = (now.getMonth() + 1).toString().padStart(2, '0');
+            var day = now.getDate().toString().padStart(2, '0');
+            var currentDate = year + '-' + month + '-' + day;
+
+            var timeInputs = document.querySelectorAll('input[data-current-time="true"]');
+            timeInputs.forEach(function (input) {
+                input.addEventListener('focus', function () {
+                    var now = new Date();
+                    var hours = now.getHours().toString().padStart(2, '0');
+                    var minutes = now.getMinutes().toString().padStart(2, '0');
+                    var currentTime = hours + ':' + minutes;
+                    input.value = currentTime;
+                });
+            });
+
+            var dateInputs = document.querySelectorAll('input[data-current-date="true"]');
+            dateInputs.forEach(function (input) {
+                input.value = currentDate;
+                input.addEventListener('focus', function () {
+                    var now = new Date();
+                    var year = now.getFullYear();
+                    var month = (now.getMonth() + 1).toString().padStart(2, '0');
+                    var day = now.getDate().toString().padStart(2, '0');
+                    var currentDate = year + '-' + month + '-' + day;
+                    input.value = currentDate;
+                });
+            });
+        }
+    </script>
+    <div class="container">
+        <div class="sidebar">
+            <button class="table-button" onclick="showForm('patientForm')">Patient Details</button>
+            <button class="table-button" onclick="showForm('pregnancyForm')">Pregnancy Details</button>
+            <button class="table-button" onclick="showForm('surgeryForm')">Surgery Details</button>
+            <button class="table-button" onclick="showForm('vaccinationForm')">Vaccination Details</button>
+            <button class="table-button" onclick="showForm('dailyInputsForm')">Daily Inputs</button>
+            <button class="table-button" onclick="showForm('medicineForm')">Medicine Details</button>
+            <button class="table-button" onclick="showForm('allergyForm')">Allergy Details</button>
+            <button class="table-button" onclick="showForm('medicalProblemsForm')">Medical Problems</button>
+        </div>
+        <div class="content">
+            <div id="form-title">
+                <h2>Select a form to fill out the details</h2>
+            </div>
+            <div id="patientForm" class="form-container">
+                <h2>Enter Patient Details</h2>
+                <form action="{{ url_for('submit_patient') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Name: <input type="text" name="Name"><br>
+                    DOB: <input type="date" name="DOB" data-current-date="true"><br>
+                    Gender:
+                    <select id="gender" name="Gender" onchange="checkGender()">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select><br>
+                    Age: <input type="number" name="Age"><br>
+                    BloodGroup:
+                    <select name="BloodGroup">
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="A1+">A1+</option>
+                        <option value="A1-">A1-</option>
+                        <option value="A2+">A2+</option>
+                        <option value="A2-">A2-</option>
+                        <option value="A1B+">A1B+</option>
+                        <option value="A1B-">A1B-</option>
+                        <option value="A2B+">A2B+</option>
+                        <option value="A2B-">A2B-</option>
+                        <option value="Bombay Blood Group">Bombay Blood Group</option>
+                    </select><br>
+                    Height: <input type="number" id="height" name="height" oninput="calculateBMI()"><br>
+                    Weight: <input type="number" id="weight" name="weight" oninput="calculateBMI()"><br>
+                    BMI: <input type="text" id="bmi" name="bmi" readonly><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-message">Remarks</label>
+                        <textarea class="form-control rounded-0" id="patient-message" name="remarks"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Patient" class="btn btn-primary">
+                </form>
+            </div>
+            <div id="vaccinationForm" class="form-container">
+                <h2>Enter Vaccination Details</h2>
+                <form action="{{ url_for('submit_vaccination') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Vaccination Name: <input type="text" name="VaccinationName"><br>
+                    Date Of Vaccination: <input type="date" name="DateOfVaccination" data-current-date="true"><br>
+                    Dosage: <input type="text" name="Dosage"><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="vaccination-message">Remarks</label>
+                        <textarea class="form-control rounded-0" id="vaccination-message" name="remarks"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Vaccination" class="btn btn-primary">
+                </form>
+            </div>
+            <div id="allergyForm" class="form-container">
+                <h2>Enter Allergy Details</h2>
+                <form action="{{ url_for('submit_allergies') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Allergy Name: <input type="text" name="AllergyName"><br>
+                    Allergy Area: <input type="text" name="AllergyArea"><br>
+                    Allergy Effect: <input type="text" name="AllergyEffect"><br>
+                    Allergy Type: <input type="text" name="AllergyType"><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="allergy-message">Remarks</label>
+                        <textarea class="form-control rounded-0" id="allergy-message" name="remarks"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Allergy" class="btn btn-primary">
+                </form>
+            </div>
+            <div id="medicalProblemsForm" class="form-container">
+                <h2>Enter Medical History</h2>
+                <form action="{{ url_for('submit_medicalproblems') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Disease Name: <input type="text" name="DiseaseName"><br>
+                    Status: <input type="text" name="Status"><br>
+                    Date: <input type="date" name="Date" data-current-date="true"><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="medical-problems-message">Remarks</label>
+                        <textarea class="form-control rounded-0" id="medical-problems-message" name="remarks"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Medical Problem" class="btn btn-primary">
+                </form>
+            </div>
+            <div id="surgeryForm" class="form-container">
+                <h2>Enter Surgery Details</h2>
+                <form action="{{ url_for('submit_surgery') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Surgery Type: <input type="text" name="SurgeryType"><br>
+                    Date: <input type="date" name="Date" data-current-date="true"><br>
+                    Outcome: <input type="text" name="Outcome"><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="surgery-message">Remarks</label>
+                        <textarea class="form-control rounded-0" id="surgery-message" name="remarks"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Surgery" class="btn btn-primary">
+                </form>
+            </div>
+            <div id="medicineForm" class="form-container">
+                <h2>Enter Medicine Details</h2>
+                <form action="{{ url_for('submit_medicine') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Medicine Name: <input type="text" name="MedicineName"><br>
+                    Dosage: <input type="text" name="Dosage"><br>
+                    Quantity: <input type="number" name="Quantity"><br>
+                    Duration Days: <input type="number" name="DurationDays"><br>
+                    Daily Time: <input type="text" name="DailyTime"><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="medicine-message">Remarks</label>
+                        <textarea class="form-control rounded-0" name='remarks' id="medicine-message"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Medicine" class="btn btn-primary">
+                </form>
+            </div>
+            <div id="dailyInputsForm" class="form-container">
+                <h2>Enter Daily Inputs</h2>
+                <form action="{{ url_for('submit_dailyinputs') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Date: <input type="date" name="Date" data-current-date="true"><br>
+                    Breakfast Pre Time: <input type="time" name="BreakfastPreTime" data-current-time="true"><br>
+                    Breakfast Sugar Level Pre: <input type="number" step="any" name="BreakfastSugarLevelPre"><br>
+                    Breakfast Post Time: <input type="time" name="BreakfastPostTime" data-current-time="true"><br>
+                    Breakfast Sugar Level Post: <input type="number" step="any" name="BreakfastSugarLevelPost"><br>
+                    Lunch Pre Time: <input type="time" name="LunchPreTime" data-current-time="true"><br>
+                    Lunch Sugar Level Pre: <input type="number" step="any" name="LunchSugarLevelPre"><br>
+                    Lunch Post Time: <input type="time" name="LunchPostTime" data-current-time="true"><br>
+                    Lunch Sugar Level Post: <input type="number" step="any" name="LunchSugarLevelPost"><br>
+                    Dinner Pre Time: <input type="time" name="DinnerPreTime" data-current-time="true"><br>
+                    Dinner Sugar Level Pre: <input type="number" step="any" name="DinnerSugarLevelPre"><br>
+                    Dinner Post Time: <input type="time" name="DinnerPostTime" data-current-time="true"><br>
+                    Dinner Sugar Level Post: <input type="number" step="any" name="DinnerSugarLevelPost"><br>
+                    BP Time: <input type="time" name="BPTime" data-current-time="true"><br>
+                    BP: <input type="number" name="BP"><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="daily-inputs-message">Remarks</label>
+                        <textarea class="form-control rounded-0" id="daily-inputs-message" name="remarks"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Daily Inputs" class="btn btn-primary">
+                </form>
+            </div>
+            <div id="pregnancyForm" class="form-container">
+                <h2>Enter Pregnancy Details</h2>
+                <form action="{{ url_for('submit_pregnancy') }}" method="post" enctype="multipart/form-data">
+                    <input type="number" style="display:none" name="PatientID" readonly value="{{ patient_id }}"><br>
+                    Year Of Pregnancy: <input type="number" name="YearOfPregnancy"><br>
+                    Delivery Type:
+                    <select name="DeliveryType">
+                        <option value="Normal">Normal</option>
+                        <option value="C-Section">C-Section</option>
+                    </select><br>
+                    Complication Before: <input type="text" name="Complicationbefore"><br>
+                    Complication After: <input type="text" name="Complicationafter"><br>
+                    Child Gender:
+                    <select name="ChildGender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select><br>
+                    <div class="form-group files">
+                        <label>Upload Your File</label>
+                        <input id="file" type="file" name="file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="pregnancy-message">Remarks</label>
+                        <textarea class="form-control rounded-0" id="pregnancy-message" name="remarks"
+                            rows="5"></textarea>
+                    </div>
+                    <input type="submit" value="Submit Pregnancy" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showForm(formId) {
+            var forms = document.getElementsByClassName("form-container");
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].style.display = "none";
+            }
+            document.getElementById(formId).style.display = "block";
+            //document.getElementById("form-title").innerHTML = "<h2>" + document.getElementById(formId).getElementsByTagName("h2")[0].innerHTML + "</h2>";
+        }
+
+        function setCurrentTime() {
+            var now = new Date();
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var currentTime = hours + ':' + minutes;
+
+            // Set current time for "Sugar Level Before Food" input
+            var sugarLevelBeforeFoodInputs = document.getElementsByName("time SugarLevelBeforeFood");
+            sugarLevelBeforeFoodInputs.forEach(function (input) {
+                input.value = currentTime;
+                input.setAttribute("data-current-time", currentTime);
+            });
+
+            // Set current time for "Sugar Level After Food" input
+            var sugarLevelAfterFoodInputs = document.getElementsByName("time SugarLevelAfterFood");
+            sugarLevelAfterFoodInputs.forEach(function (input) {
+                input.value = currentTime;
+                input.setAttribute("data-current-time", currentTime);
+            });
+
+            // Set current time for "Time" input
+            document.getElementById("currentTime").value = hours + ':' + minutes;
+        }
+    </script>
+    {% include 'footer.html' %}
+</body>
+
+</html>

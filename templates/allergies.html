@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allergies Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Allergies Data</h1>
+        {% for row in rows %}
+        <div class="record">
+            <div><strong>PatientID:</strong> {{ row['PatientID'] }}</div>
+            <div><strong>AllergyID:</strong> {{ row['AllergyID'] }}</div>
+            <div><strong>Allergy Name:</strong> {{ row['AllergyName'] }}</div>
+            <div><strong>Allergy Area:</strong> {{ row['AllergyArea'] }}</div>
+            <div><strong>Allergy Effect:</strong> {{ row['AllergyEffect'] }}</div>
+            <div><strong>Allergy Type:</strong> {{ row['AllergyType'] }}</div>
+            <div><strong>Remarks:</strong> {{ row['remarks'] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

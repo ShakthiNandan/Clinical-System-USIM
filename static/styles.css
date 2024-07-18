@@ -1,0 +1,163 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+}
+
+header {
+    background-color: #a3d5f7;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    color: #1a73e8;
+    font-size: 2em;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+}
+
+nav a:hover {
+    color: #1a73e8;
+}
+
+.btn {
+    background-color: #1a73e8;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.btn:hover {
+    background-color: #0c50c1;
+}
+
+#hero {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #e0f7fa;
+    flex: 1;
+}
+
+#hero h2 {
+    color: #00796b;
+    font-size: 2.5em;
+}
+
+#hero p {
+    color: #555;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #00796b;
+}
+
+.btn-primary:hover {
+    background-color: #004d40;
+}
+
+.hero-img {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #1a73e8;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto; /* Push footer to bottom */
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-media {
+    background-color: #546e7a;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.social-media img {
+    width: 30px;
+    height: 30px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: #1a73e8;
+    padding: 20px 0;
+}
+
+.footer-content div {
+    flex: 1;
+    text-align: left;
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+footer {
+    background-color: #f8f8f8;
+    padding: 20px;
+    text-align: center;
+}
+
+.follow-us {
+    display: inline-block;
+}
+
+.follow-us h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.follow-us a {
+    text-decoration: none;
+}
+
+.follow-us img {
+    margin-top: 10px;
+}

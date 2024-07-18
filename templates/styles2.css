@@ -1,0 +1,88 @@
+/* Reference: Importing Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+/* Reference: General styles */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Reference: Card styles */
+.card {
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;
+    box-shadow: 0% 3% 6% rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Reference: Card info styles */
+.card .info {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e1dede;
+    background-color: #e5e5e5;
+}
+
+/* Reference: Button styles */
+.card .info button {
+    height: 30px;
+    width: 80px;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #000;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/* Reference: Form styles */
+.card .forms {
+    padding: 15px;
+}
+
+/* Reference: Input container styles */
+.card .inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+/* Reference: Input label styles */
+.card .inputs span {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+/* Reference: Input field styles */
+.card .inputs input {
+    height: 40px;
+    padding: 0 10px;
+    font-size: 17px;
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Reference: Readonly input field styles */
+.card .inputs input[readonly] {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+/* Reference: Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+}

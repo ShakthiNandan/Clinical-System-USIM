@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Pregnancy Data</h1>
+        {% for row in rows %}
+        <div class="record">
+            <div><strong>PatientID:</strong> {{ row['PatientID'] }}</div>
+            <div><strong>PregnancyID:</strong> {{ row['PregnancyID'] }}</div>
+            <div><strong>Year Of Pregnancy:</strong> {{ row['YearOfPregnancy'] }}</div>
+            <div><strong>Delivery Type:</strong> {{ row['DeliveryType'] }}</div>
+            <div><strong>Complication before:</strong> {{ row['Complicationbefore'] }}</div>
+            <div><strong>Complication after:</strong> {{ row['Complicationafter'] }}</div>
+            <div><strong>Child Gender:</strong> {{ row['ChildGender'] }}</div>
+            <div><strong>Remarks:</strong> {{ row['remarks'] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

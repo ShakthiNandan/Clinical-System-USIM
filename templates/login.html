@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles copy.css') }}">
+    <meta charset="UTF-8">
+    <title>LiveDoc - Registration</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+
+
+    <section style="display:block">
+        {% for mesg in get_flashed_messages() %}
+        <p>{{ mesg }}</p><br>
+        {% endfor %}
+    </section>
+    <section>
+
+        <div class="form-structor">
+            <div class="signup  slide-up" style="display:none">
+                <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+                <form action="{{ url_for('signup') }}" method="POST" class="form-holder">
+                    <input type="number" name="patient_id" class="input" placeholder="User ID" required />
+                    <input type="text" class="input" name="username" id="username" placeholder="Username" required />
+                    <input type="email" name="email" class="input" placeholder="Email" required />
+                    <input type="password" name="password" id="password" class="input" placeholder="Password"
+                        required />
+                    <input type="password" id="confirm_password" class="input" placeholder="Confirm Password"
+                        required />
+                    <input type="text" name="otp" class="input" placeholder="OTP" />
+                    <button type="button" class="otp-btn">Send OTP</button>
+                    <button type="submit" class="submit-btn">Sign up</button>
+                </form>
+                {% if second %}
+                <div>
+                    <p>Invalid username/id</p>
+                </div>
+                {% else %}
+
+                {% endif %}
+            </div>
+            <div class="login">
+                <div class="center">
+                    <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+                    <form action="{{url_for('login')}}" method="POST" class="form-holder">
+                        <input type="text" id="patient-id" class="input" name="patient_id" placeholder="User ID"
+                            required><br>
+                        <input type="password" id="password" class="input" name="password" placeholder="Password"
+                            required>
+                        <button type="submit" class="submit-btn">Log in</button>
+                    </form>
+                    {% if second %}
+                    <div>
+                        <a href="{{url_for('signup')}}" class="btn-primary">Wanna register?</a>
+                    </div>
+                    {% else %}
+                    
+                    {% endif %}
+                    <div>
+                        <a href="{{url_for('forgot_password')}}" class="btn-primary">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+
+            console.clear();
+            const loginBtn = document.getElementById('login');
+            const signupBtn = document.getElementById('signup');
+            const otpBtn = document.querySelector('.otp-btn');
+
+
+            var password = document.getElementById("password");
+            var confirm_password = document.getElementById("confirm_password");
+
+            // Function to validate password match
+            function validatePassword() {
+                if (password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("Passwords do not match");
+                } else {
+                    confirm_password.setCustomValidity("");
+                }
+            }
+
+            // Add event listeners to check on input
+            password.addEventListener("input", validatePassword);
+            confirm_password.addEventListener("input", validatePassword);
+
+            loginBtn.addEventListener('click', (e) => {
+                let parent = e.target.parentNode.parentNode;
+                Array.from(e.target.parentNode.parentNode.classList).find((element) => {
+                    if (element !== "slide-up") {
+                        parent.classList.add('slide-up')
+                    } else {
+                        signupBtn.parentNode.classList.add('slide-up')
+                        parent.classList.remove('slide-up')
+                    }
+                });
+            });
+
+            signupBtn.addEventListener('click', (e) => {
+                let parent = e.target.parentNode;
+                Array.from(e.target.parentNode.classList).find((element) => {
+                    if (element !== "slide-up") {
+                        parent.classList.add('slide-up')
+                    } else {
+                        loginBtn.parentNode.parentNode.classList.add('slide-up')
+                        parent.classList.remove('slide-up')
+                    }
+                });
+            });
+
+            otpBtn.addEventListener('click', () => {
+                const email = document.querySelector('input[name="email"]').value;
+                fetch('/send_otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ email })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert('OTP sent! Check your email.');
+                    })
+                    .catch(error => {
+                        alert('Error sending OTP');
+                    });
+            });
+        </script>
+</body>
+
+</html>

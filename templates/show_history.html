@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-size: cover;
+            color: #333;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .profile-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .profile-card h2 {
+            margin-bottom: 20px;
+        }
+        .profile-item {
+            margin-bottom: 10px;
+        }
+        .profile-item span {
+            font-weight: bold;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin-bottom: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+            background-color: #00D9A5;
+            color: #000000;
+            padding: 10px;
+            border-radius: 25px;
+            display: block;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #00D9A5;
+            transform: scale(1.05);
+        }
+        .hidden {
+            display: none;
+        }
+        .fullscreen-img {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .fullscreen-img img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    </style>
+    <script>
+        function loadTable(table) {
+            fetch(`/table/${table}?patient_id={{ patient_id }}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableDiv = document.getElementById(table);
+                    tableDiv.innerHTML = '';
+    
+                    if (data.rows.length === 0) {
+                        tableDiv.innerHTML = "<div class='profile-card'><p>No data available</p></div>";
+                        showSection(table);
+                        return;
+                    }
+    
+                    data.rows.forEach(row => {
+                        const card = document.createElement('div');
+                        card.className = 'profile-card';
+                        data.columns.forEach((column, index) => {
+                            if (row[index] !== null) {
+                                const item = document.createElement('div');
+                                item.className = 'profile-item';
+                                if (column === 'image') {
+                                    const img = document.createElement('img');
+                                    img.src = `data:image/jpeg;base64,${row[index]}`;
+                                    img.alt = 'Image';
+                                    img.style.width = '100px';
+                                    img.style.cursor = 'pointer';
+                                    img.onclick = () => showFullscreenImage(img.src);
+                                    item.appendChild(img);
+                                } else {
+                                    item.innerHTML = `<span>${column}:</span> ${row[index]}`;
+                                }
+                                card.appendChild(item);
+                            }
+                        });
+                        const editButton = document.createElement('button');
+                        editButton.className = 'btn btn-primary';
+                        editButton.textContent = 'Edit';
+                        editButton.onclick = () => {
+                            window.location.href = `/edit_record/${table}/${row[0]}`; // Assuming row[0] is the record ID
+                        };
+                        card.appendChild(editButton);
+                        tableDiv.appendChild(card);
+                    });
+    
+                    showSection(table);
+                });
+        }
+    </script>
+    
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        /*function loadTable(table) {
+            fetch(`/table/${table}?patient_id={{ patient_id }}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableDiv = document.getElementById(table);
+                    tableDiv.innerHTML = '';
+
+                    if (data.rows.length === 0) {
+                        tableDiv.innerHTML = "<div class='profile-card'><p>No data available</p></div>";
+                        showSection(table);
+                        return;
+                    }
+
+                    data.rows.forEach(row => {
+                        const card = document.createElement('div');
+                        card.className = 'profile-card';
+                        data.columns.forEach((column, index) => {
+                            if (row[index] !== null) {
+                                const item = document.createElement('div');
+                                item.className = 'profile-item';
+                                if (column === 'image') {
+                                    const img = document.createElement('img');
+                                    img.src = `data:image/jpeg;base64,${row[index]}`;
+                                    img.alt = 'Image';
+                                    img.style.width = '100px';
+                                    img.style.cursor = 'pointer';
+                                    img.onclick = () => showFullscreenImage(img.src);
+                                    item.appendChild(img);
+                                } else {
+                                    item.innerHTML = `<span>${column}:</span> ${row[index]}`;
+                                }
+                                card.appendChild(item);
+                            }
+                        });
+                        tableDiv.appendChild(card);
+                    });
+
+                    showSection(table);
+                });
+        }
+*/
+        function showFullscreenImage(src) {
+            const fullscreenDiv = document.getElementById('fullscreen-img');
+            const img = fullscreenDiv.querySelector('img');
+            img.src = src;
+            fullscreenDiv.style.display = 'flex';
+        }
+
+        function hideFullscreenImage() {
+            const fullscreenDiv = document.getElementById('fullscreen-img');
+            fullscreenDiv.style.display = 'none';
+        }
+    </script>
+</head>
+<body>{% include 'header.html' %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <nav class="profile-card">
+                    <ul class="list-group">
+                        {% for table in tables %}
+                        <li class="list-group-item"><a onclick="loadTable('{{ table }}')">{{ table }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-8">
+                {% for table in tables %}
+                <section id="{{ table }}" class="hidden">
+                    <div class="profile-card">
+                        <h2>{{ table }} Information</h2>
+                        <div class="content"></div>
+                    </div>
+                </section>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div id="fullscreen-img" class="fullscreen-img" onclick="hideFullscreenImage()">
+        <img src="" alt="Fullscreen Image">
+    </div>{% include 'footer.html' %}
+
+</body>
+</html>

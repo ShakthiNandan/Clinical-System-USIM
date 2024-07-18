@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Clinical System</h1>
+        <div class="buttons">
+            <button onclick="loadContent('pregnancy')">Pregnancy</button>
+            <button onclick="loadContent('surgery')">Surgery</button>
+            <button onclick="loadContent('vaccination')">Vaccination</button>
+            <button onclick="loadContent('dailyinputs')">Daily Inputs</button>
+            <button onclick="loadContent('medicine')">Medicine</button>
+            <button onclick="loadContent('patient')">Patient</button>
+            <button onclick="loadContent('allergies')">Allergies</button>
+            <button onclick="loadContent('medicalproblems')">Medical Problems</button>
+        </div>
+        <div id="content">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </div>
+    <script>
+        function loadContent(page) {
+            $("#content").load("/" + page);
+        }
+    </script>
+</body>
+</html>

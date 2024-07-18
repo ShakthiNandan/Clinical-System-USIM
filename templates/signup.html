@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LiveDoc - Registration</title>
+    <link rel="stylesheet" href="../static/css/maicons.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/vendor/owl-carousel/css/owl.carousel.css">
+    <link rel="stylesheet" href="../static/vendor/animate/animate.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .ui-autocomplete {
+            z-index: 1000;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .form-section, .testimonial-section {
+            padding: 40px;
+            flex: 1;
+        }
+
+        .form-section {
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .form-section h2 {
+            margin: 0 0 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-section input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-section button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-section .alt-login {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .form-section .alt-login a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .testimonial-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #eaf6ff;
+        }
+
+        .testimonial-section img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-section p {
+            font-size: 16px;
+            color: #555;
+            margin: 0 0 10px;
+        }
+
+        .testimonial-section h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .testimonial-section span {
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h2>Get Started with LiveDoc</h2>
+            <form action="{{ url_for('signup') }}" method="POST">
+                <input type="number" name="patient_id" placeholder="User ID" required />
+                <input type="text" name="username" placeholder="Username" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <input type="number" name="phone" placeholder="Phone" required />
+                <input type="text" name="otp" placeholder="OTP" />
+                <button type="button" class="btn otp-btn">Send OTP</button>
+                <input type="password" name="password" id="password" placeholder="Password" required />
+                <input type="password" id="confirm_password" placeholder="Confirm Password" required />
+                <button type="submit">Register</button>
+            </form>
+            <p class="alt-login">Already have an account? <a href="{{ url_for('login') }}">Log In</a></p>
+        </div>
+        <div class="testimonial-section">
+            <img src="../static/img/clinic-logo.png" alt="Clinical System Logo">
+            <p>"Our app has revolutionized how we manage patient data. The ability to track and access medical history instantly improves patient care tremendously."</p>
+            <span>USIM Clinical system</span>
+        </div>
+    </div>
+
+    <script src="../static/js/jquery-3.5.1.min.js"></script>
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+    <script src="../static/vendor/wow/wow.min.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        var password = document.getElementById("password");
+        var confirm_password = document.getElementById("confirm_password");
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords do not match");
+            } else {
+                confirm_password.setCustomValidity("");
+            }
+        }
+
+        password.addEventListener("input", validatePassword);
+        confirm_password.addEventListener("input", validatePassword);
+
+        const otpBtn = document.querySelector('.otp-btn');
+        otpBtn.addEventListener('click', () => {
+            const email = document.querySelector('input[name="email"]').value;
+            fetch('/send_otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ email })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('OTP sent! Check your email.');
+                })
+                .catch(error => {
+                    alert('Error sending OTP');
+                });
+        });
+    </script>
+</body>
+</html>

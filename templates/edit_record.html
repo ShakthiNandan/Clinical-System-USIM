@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Record</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Edit {{ table }} Record</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% for column, value in zip(columns, record) %}
+            <div class="form-group">
+                <label for="{{ column }}">{{ column }}</label>
+                <input type="text" class="form-control" id="{{ column }}" name="{{ column }}" value="{{ value }}">
+            </div>
+            {% endfor %}
+            <input type="hidden" name="PatientID" value="{{ record[columns.index('PatientID')] }}">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

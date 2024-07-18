@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinical Data Entry</title>
+
+  <link href="static/styles2.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    {% include 'header1.html' %}
+  <div class="container">
+    <div class="card">
+      <div class="info">
+        <button>Info</button>
+      </div>
+      <div class="forms">
+        <form action="{{ url_for('submit') }}" method="post">
+          <label for="id">ID:</label>
+          <div class="inputs">
+            <span>ID:</span>
+            <input type="number" readonly id="id" name="id" required value="{{ patient_id }}" />
+          </div>
+          <div class="inputs">
+            <span>Username:</span>
+            <input type="text" id="username" name="username" required value="{{ username }}" /><br />
+          </div>
+          <div class="inputs">
+            <span>Name:</span>
+            <input type="text" id="name" name="name" required value="{{ name }}" /><br />
+          </div>
+          <div class="inputs">
+            <span>Age:</span>
+            <input type="number" id="age" name="age" required value="{{ age }}" /><br />
+          </div>
+          <div class="inputs">
+            <span>Gender:</span>
+            <input type="text" id="gender" name="gender" required value="{{ gender }}" /><br />
+          </div>
+          <div class="inputs">
+            <span>Email:</span>
+            <input type="email" id="email" name="email" required value="{{ email }}" /><br />
+          </div>
+          <div class="inputs">
+            <span>Password:</span>
+            <input type="password" id="password" name="password" required value="{{ password }}" /><br />
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+  </div>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>
