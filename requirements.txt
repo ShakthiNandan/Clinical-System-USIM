@@ -2,7 +2,6 @@ flask
 qrcode
 numpy
 opencv-python
-smtplib
 twilio
 base64
 webbrowser
