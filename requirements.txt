@@ -1,6 +1,5 @@
 flask
 qrcode
-PIL
 numpy
 opencv-python
 smtplib
