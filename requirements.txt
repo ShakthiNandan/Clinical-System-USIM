@@ -3,6 +3,5 @@ qrcode
 numpy
 opencv-python
 twilio
-base64
 webbrowser
 matplotlib
